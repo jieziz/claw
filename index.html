@@ -251,6 +251,7 @@
             /* 悬停时显示粒子效果 */
         }
 
+
         /* 移动端表格样式 */
         @media (max-width: 768px) {
             table {
@@ -423,31 +424,32 @@
     </div>
 
     <!-- 定价表格 -->
-    <div class="container mx-auto px-4 md:px-6 py-8 md:py-12 overflow-x-auto"> <!-- 添加 overflow-x-auto 实现水平滚动 -->
+    <div class="container mx-auto px-4 md:px-6 py-8 md:py-12 overflow-x-auto">
         <!-- Cloud-VPS 表格 -->
         <div id="Cloud-VPS" class="tab-content">
-            <table class="min-w-full border">
+            <table class="min-w-full border table-auto">
                 <thead>
                     <tr>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">配置</th>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">折扣价</th>
-                        <th class="py-3 px-4 md:py-4 md:px-6 text-left   ">适用区域</th>
+                        <th class="py-3 px-4 md:py-4 md:px-6 text-left">适用区域</th>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">折扣</th>
-                        <th class="py-3 px-4 md:py-4 md:px-6 text-left   ">规则</th>
+                        <th class="py-3 px-4 md:py-4 md:px-6 text-left">规则</th>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">优惠码</th>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">立即购买</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="border-b hover:bg-gray-50 text-red-600">
-                        <td class="py-3 px-4 md:py-4 md:px-6 flex items-center" data-label="配置">
-                            <img src="assets/limit.gif" alt="限量" class="w-5 h-5 md:w-6 md:h-6 mr-2">
-                            1C/1G/20G/0.5T
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">
+                            <img src="assets/limit.gif" alt="限量"
+                                class="w-5 h-5 md:w-6 md:h-6 inline-block align-middle mr-2">
+                            <span class="inline-block align-middle">1C/1G/20G/0.5T</span>
                         </td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣价">$7/年</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="适用区域">香港/日本/新加坡/法兰克福/北弗吉尼亚/北加利福尼亚</td>
+                        <td class="md:w-48 py-3 px-4 md:py-4 md:px-6" data-label="适用区域">香港/日本/新加坡/法兰克福/北弗吉尼亚/北加利福尼亚</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣">80.50% OFF</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="规则">首年优惠，每位客户限用一次</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="规则">首年优惠，每位客户限用一次</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠码">7CLAW</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="立即购买"><a
                                 href="https://clawcloudsingaporeprivatelimited.sjv.io/kORV4M"
@@ -456,9 +458,9 @@
                     <tr class="border-b hover:bg-gray-50">
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">2C/4G/60G/1T</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣价">$4.8/月</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="适用区域">香港/日本/新加坡/法兰克福/北弗吉尼亚/北加利福尼亚</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="适用区域">香港/日本/新加坡/法兰克福/北弗吉尼亚/北加利福尼亚</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣">40% OFF</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="规则">终身循环折扣</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="规则">终身循环折扣</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠码">1Q58BUONGL</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="立即购买"><a
                                 href="https://clawcloudsingaporeprivatelimited.sjv.io/GKDoyr"
@@ -467,9 +469,9 @@
                     <tr class="border-b hover:bg-gray-50">
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">4C/8G/100G/2T</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣价">$10.8/月</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="适用区域">香港/日本/新加坡/法兰克福/北弗吉尼亚/北加利福尼亚</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="适用区域">香港/日本/新加坡/法兰克福/北弗吉尼亚/北加利福尼亚</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣">40% OFF</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="规则">终身循环折扣</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="规则">终身循环折扣</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠码">UQHYEPEU92</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="立即购买"><a
                                 href="https://clawcloudsingaporeprivatelimited.sjv.io/Xm1oe4"
@@ -481,26 +483,27 @@
 
         <!-- Cloud-VDS 表格 -->
         <div id="Cloud-VDS" class="tab-content hidden">
-            <table class="min-w-full border">
+            <table class="min-w-full border table-auto">
                 <thead>
                     <tr>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">配置</th>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">折扣价</th>
-                        <th class="py-3 px-4 md:py-4 md:px-6 text-left   ">适用区域</th>
+                        <th class="py-3 px-4 md:py-4 md:px-6 text-left">适用区域</th>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">折扣</th>
-                        <th class="py-3 px-4 md:py-4 md:px-6 text-left   ">规则</th>
+                        <th class="py-3 px-4 md:py-4 md:px-6 text-left">规则</th>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">优惠码</th>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">立即购买</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="border-b hover:bg-gray-50 text-red-600">
-                        <td class="py-3 px-4 md:py-4 md:px-6 flex items-center" data-label="配置">
-                            <img src="assets/limit.gif" alt="限量" class="w-5 h-5 md:w-6 md:h-6 mr-2">
-                            2C/4G/80G/1T
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">
+                            <img src="assets/limit.gif" alt="限量"
+                                class="w-5 h-5 md:w-6 md:h-6 inline-block align-middle mr-2">
+                            <span class="inline-block align-middle">2C/4G/80G/1T</span>
                         </td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣价">$4.2/月</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="适用区域">香港/日本/新加坡/法兰克福/北弗吉尼亚/北加利福尼亚</td>
+                        <td class="md:w-48 py-3 px-4 md:py-4 md:px-6" data-label="适用区域">香港/日本/新加坡/法兰克福/北弗吉尼亚/北加利福尼亚</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣">65% OFF</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="规则">首年优惠，每位客户限用一次</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠码">4CLAW</td>
@@ -537,14 +540,14 @@
 
         <!-- Cloud-WIN 表格 -->
         <div id="Cloud-WIN" class="tab-content hidden">
-            <table class="min-w-full border">
+            <table class="min-w-full border table-auto">
                 <thead>
                     <tr>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">配置</th>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">折扣价</th>
-                        <th class="py-3 px-4 md:py-4 md:px-6 text-left   ">适用区域</th>
+                        <th class="py-3 px-4 md:py-4 md:px-6 text-left">适用区域</th>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">折扣</th>
-                        <th class="py-3 px-4 md:py-4 md:px-6 text-left   ">规则</th>
+                        <th class="py-3 px-4 md:py-4 md:px-6 text-left">规则</th>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">优惠码</th>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">立即购买</th>
                     </tr>
@@ -553,9 +556,9 @@
                     <tr class="border-b hover:bg-gray-50">
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">2C/4G/80G/1T</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣价">$9.6/月</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="适用区域">香港/日本/新加坡/法兰克福/北弗吉尼亚/北加利福尼亚</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="适用区域">香港/日本/新加坡/法兰克福/北弗吉尼亚/北加利福尼亚</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣">40% OFF</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="规则">终身循环折扣</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="规则">终身循环折扣</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠码">Y9I4EOF40B</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="立即购买"><a
                                 href="https://clawcloudsingaporeprivatelimited.sjv.io/yqroM3"
@@ -564,9 +567,9 @@
                     <tr class="border-b hover:bg-gray-50">
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">4C/16G/240G/4T</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣价">$21.6/月</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="适用区域">香港/日本/新加坡/法兰克福/北弗吉尼亚/北加利福尼亚</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="适用区域">香港/日本/新加坡/法兰克福/北弗吉尼亚/北加利福尼亚</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣">40% OFF</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="规则">终身循环折扣</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="规则">终身循环折扣</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠码">569RXIPE6Z</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="立即购买"><a
                                 href="https://clawcloudsingaporeprivatelimited.sjv.io/YRdKeP"
@@ -575,9 +578,9 @@
                     <tr class="border-b hover:bg-gray-50">
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">8C/32G/400G/6T</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣价">$39.6/月</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="适用区域">香港/日本/新加坡/法兰克福/北弗吉尼亚/北加利福尼亚</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="适用区域">香港/日本/新加坡/法兰克福/北弗吉尼亚/北加利福尼亚</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣">40% OFF</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="规则">终身循环折扣</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="规则">终身循环折扣</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠码">J9CIMCY90U</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="立即购买"><a
                                 href="https://clawcloudsingaporeprivatelimited.sjv.io/7abKPg"
@@ -589,28 +592,29 @@
 
         <!-- China Optimized 表格 -->
         <div id="China-Optimized" class="tab-content hidden">
-            <table class="min-w-full border">
+            <table class="min-w-full border table-auto">
                 <thead>
                     <tr>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">配置</th>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">折扣价</th>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">适用区域</th>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">折扣</th>
-                        <th class="py-3 px-4 md:py-4 md:px-6 text-left   ">规则</th>
+                        <th class="py-3 px-4 md:py-4 md:px-6 text-left">规则</th>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">优惠码</th>
                         <th class="py-3 px-4 md:py-4 md:px-6 text-left">立即购买</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="border-b hover:bg-gray-50 text-red-600">
-                        <td class="py-3 px-4 md:py-4 md:px-6 flex items-center" data-label="配置">
-                            <img src="assets/limit.gif" alt="限量" class="w-5 h-5 md:w-6 md:h-6 mr-2">
-                            2C/1G/40G/1T
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">
+                            <img src="assets/limit.gif" alt="限量"
+                                class="w-5 h-5 md:w-6 md:h-6 inline-block align-middle mr-2">
+                            <span class="inline-block align-middle">2C/1G/40G/1T</span>
                         </td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣价">$4.2/月</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="适用区域">香港/日本/新加坡</td>
+                        <td class="md:w-48 py-3 px-4 md:py-4 md:px-6" data-label="适用区域">香港/日本/新加坡</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣">30% OFF</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="规则">每位客户限用一次，终身循环折扣</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="规则">每位客户限用一次，终身循环折扣</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠码">O3CM4FHC9I</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="立即购买"><a
                                 href="https://clawcloudsingaporeprivatelimited.sjv.io/DyKAVq"
@@ -619,9 +623,9 @@
                     <tr class="border-b hover:bg-gray-50">
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">win-2C/4G/60G/1T</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣价">$12/月</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="适用区域">香港/日本/新加坡</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="适用区域">香港/日本/新加坡</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣">40% OFF</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="规则">终身循环折扣</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="规则">终身循环折扣</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠码">4UXEY0AAA4</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="立即购买"><a
                                 href="https://clawcloudsingaporeprivatelimited.sjv.io/mOn1MM"
@@ -630,9 +634,9 @@
                     <tr class="border-b hover:bg-gray-50">
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">win-4C/8G/100G/4T</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣价">$28.8/月</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="适用区域">香港/日本/新加坡</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="适用区域">香港/日本/新加坡</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣">40% OFF</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="规则">终身循环折扣</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="规则">终身循环折扣</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠码">SKQG5HD87N</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="立即购买"><a
                                 href="https://clawcloudsingaporeprivatelimited.sjv.io/qzgoMY"
@@ -641,9 +645,9 @@
                     <tr class="border-b hover:bg-gray-50">
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">4C/8G/200G/2T</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣价">$18/月</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="适用区域">香港/日本/新加坡</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="适用区域">香港/日本/新加坡</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣">40% OFF</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="规则">终身循环折扣</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="规则">终身循环折扣</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠码">XE0T35YIV3</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="立即购买"><a
                                 href="https://clawcloudsingaporeprivatelimited.sjv.io/xLnoM1"
@@ -652,9 +656,9 @@
                     <tr class="border-b hover:bg-gray-50">
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">8C/16G/600G/4T</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣价">$48/月</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="适用区域">香港/日本/新加坡</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="适用区域">香港/日本/新加坡</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣">40% OFF</td>
-                        <td class="py-3 px-4 md:py-4 md:px-6   " data-label="规则">终身循环折扣</td>
+                        <td class="py-3 px-4 md:py-4 md:px-6" data-label="规则">终身循环折扣</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠码">F9VQ1R5T5B</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="立即购买"><a
                                 href="https://clawcloudsingaporeprivatelimited.sjv.io/DyLao2"
