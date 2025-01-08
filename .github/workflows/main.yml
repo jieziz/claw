@@ -1,0 +1,24 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - master  # 触发部署的分支
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to Server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}  # 服务器 IP
+          username: ${{ secrets.SERVER_USERNAME }}  # 服务器用户名
+          password: ${{ secrets.SERVER_PASSWORD }}  # 服务器密码
+          port: 22  # SSH 端口
+          source: "./*"  # 需要上传的文件
+          target: "/opt/1panel/apps/openresty/openresty/www/sites/claw.ink/index"  # 服务器目标路径
