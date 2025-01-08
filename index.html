@@ -94,18 +94,27 @@
 </head>
 <body class="bg-gray-100 text-gray-800">
     <!-- 顶部横幅 -->
-    <div id="top-banner" class="py-4 relative w-full gradient-bg">
-        <div class="container mx-auto px-4 md:px-8 text-center">
-            <p class="text-black font-medium text-sm md:text-base">
-                使用优惠码 <span class="font-bold">Z3ZUF1RT5F</span> 购买任意产品，选择季度支付即可享受 8 折优惠。
+    <div id="top-banner" class="py-4 relative w-full bg-gradient-to-r from-green-500 to-green-700 shadow-lg">
+        <div class="container mx-auto px-4 md:px-8 flex items-center justify-center h-12">
+            <p class="text-white font-medium text-sm md:text-base flex items-center">
+                <span class="mr-2">🎉</span>
+                使用优惠码
+                <span id="coupon-code" class="font-bold bg-white text-green-700 px-2 py-1 rounded-md mx-2 cursor-pointer hover:bg-green-100 transition-colors" onclick="copyCouponCode()">Z3ZUF1RT5F</span>
+                购买任意产品，选择季度支付即可享受
+                <span class="font-bold ml-2">8 折优惠</span>
             </p>
+            <!-- 关闭按钮 -->
+            <button id="close-banner" class="absolute top-1/2 right-4 md:right-8 transform -translate-y-1/2 text-white hover:text-gray-200 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
         </div>
-        <!-- 关闭按钮 -->
-        <button id="close-banner" class="absolute top-1/2 right-4 md:right-8 transform -translate-y-1/2 text-black hover:text-gray-800 focus:outline-none">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-        </button>
+    </div>
+    
+    <!-- 侧边提示 -->
+    <div id="copy-notification" class="fixed top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-md shadow-lg transform translate-x-full transition-transform duration-300">
+        优惠码已复制！
     </div>
 
     <!-- 顶部导航和背景 -->
@@ -401,6 +410,8 @@
         </div>
     </div>
 
+    <script src="js/common.js"></script>
+
     <script>
         const tabs = document.querySelectorAll('.tab-item');
         const tabContents = document.querySelectorAll('.tab-content');
@@ -422,20 +433,9 @@
             });
         });
 
-        // 汉堡菜单切换
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
 
-        // 关闭横幅功能
-        const closeButton = document.getElementById('close-banner');
-        const banner = document.getElementById('top-banner');
 
-        closeButton.addEventListener('click', () => {
-            banner.style.display = 'none'; // 隐藏横幅
-        });
+        
     </script>
 </body>
 </html>
