@@ -20,7 +20,7 @@ function copyCouponCode() {
 function showNotification(message, bgColor = 'green') {
     const notification = document.getElementById('copy-notification');
     notification.innerText = message;
-    notification.className = `fixed top-4 right-4 bg-${bgColor}-600 text-white px-4 py-2 rounded-md shadow-lg transform translate-x-full transition-transform duration-300`;
+    notification.className = `fixed top-4 right-0 bg-${bgColor}-600 text-white px-4 py-2 rounded-md shadow-lg transform translate-x-full transition-transform duration-300`;
 
     // 显示提示
     setTimeout(() => {
