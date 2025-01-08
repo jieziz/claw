@@ -108,6 +108,149 @@
             border-radius: 2px;
         }
 
+        /* 基础按钮样式 */
+        .order-button {
+            display: inline-block;
+            padding: 10px 20px;
+            /* 适中的内边距 */
+            font-size: 14px;
+            /* 适中的字体 */
+            font-weight: 600;
+            /* 中等字重 */
+            color: #fff;
+            background: linear-gradient(135deg, #ff6b6b, #fb2234);
+            /* 红色渐变色背景 */
+            border: none;
+            border-radius: 14px;
+            /* 适中的圆角 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* 柔和的阴影 */
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            /* 隐藏溢出的效果 */
+            transition: all 0.3s ease;
+            /* 平滑过渡 */
+        }
+
+        /* 悬停效果：背景光晕和微弹动画 */
+        .order-button:hover {
+            background: linear-gradient(135deg, #ff4757, #fb2234);
+            /* 渐变色反转 */
+            transform: scale(1.05);
+            /* 轻微放大 */
+            box-shadow: 0 6px 12px rgba(255, 71, 87, 0.4);
+            /* 红色光晕阴影 */
+            animation: bounce 0.5s ease, glow 1.5s infinite;
+            /* 微弹动画 + 光晕动画 */
+        }
+
+        /* 微弹动画 */
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: scale(1.05);
+            }
+
+            50% {
+                transform: scale(0.95);
+            }
+        }
+
+        /* 光晕动画 */
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px rgba(255, 71, 87, 0.6);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(255, 71, 87, 0.8);
+            }
+        }
+
+        /* 点击效果：涟漪动画 */
+        .order-button:active::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.4);
+            /* 半透明白色 */
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: ripple 0.6s ease-out;
+            /* 涟漪动画 */
+        }
+
+        /* 涟漪动画 */
+        @keyframes ripple {
+            to {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* 更明显的呼吸灯效果 */
+        @keyframes breathe {
+
+            0%,
+            100% {
+                opacity: 0.8;
+                /* 透明度更低 */
+                transform: scale(0.98);
+                /* 缩小更多 */
+            }
+
+            50% {
+                opacity: 1;
+                /* 完全不透明 */
+                transform: scale(1.05);
+                /* 放大更多 */
+            }
+        }
+
+        .order-button.pulse {
+            animation: breathe 1.5s infinite;
+            /* 加快呼吸灯动画速度 */
+        }
+
+        /* 按钮文字的动态效果 */
+        .order-button span {
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .order-button:hover span {
+            transform: translateY(-2px);
+            /* 文字轻微上移 */
+        }
+
+        /* 按钮背景的动态粒子效果 */
+        .order-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 10%, transparent 10.01%);
+            background-size: 10px 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .order-button:hover::before {
+            opacity: 1;
+            /* 悬停时显示粒子效果 */
+        }
+
         /* 移动端表格样式 */
         @media (max-width: 768px) {
             table {
@@ -308,7 +451,7 @@
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠码">7CLAW</td>
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="立即购买"><a
                                 href="https://clawcloudsingaporeprivatelimited.sjv.io/kORV4M"
-                                class="text-red-600 hover:underline">点击下单</a></td>
+                                class="order-button pulse">点击下单</a></td>
                     </tr>
                     <tr class="border-b hover:bg-gray-50">
                         <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">2C/4G/60G/1T</td>
