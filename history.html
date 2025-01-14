@@ -9,7 +9,6 @@
     <link href="css/font.css" rel="stylesheet">
     <!-- 引入历史感字体 -->
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* 复用现有样式 */
         body {
@@ -205,9 +204,7 @@
 
         /* 在已绝版行的最右侧添加图标 */
         .discontinued::after {
-            content: "\f05e"; /* Font Awesome 的 ban 图标 */
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
+            content: "☠️"; 
             position: absolute;
             right: 16px; /* 距离右侧的距离 */
             top: 50%;
@@ -406,7 +403,7 @@
                     <td class="py-3 px-4 md:py-4 md:px-6" data-label="获得方式">官方活动
                         <span class="hidden-method">
                             <a href="https://t.me/clawCloudActivityChannel" target="_blank" class="hidden-link">
-                                <i class="fas fa-question-circle"></i> 隐藏方式
+                                ❓ 隐藏方式
                             </a>
                         </span>
                     </td>
