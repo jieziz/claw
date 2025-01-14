@@ -20,5 +20,5 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}  # 服务器用户名
           password: ${{ secrets.SERVER_PASSWORD }}  # 服务器密码
           port: 22  # SSH 端口
-          source: "assets/,css/,js/,index.html,lg.html"  # 需要上传的文件和目录
+          source: "assets/,css/,js/,index.html,lg.html,history.html"  # 需要上传的文件和目录
           target: "/opt/1panel/apps/openresty/openresty/www/sites/claw.ink/index"  # 服务器目标路径
