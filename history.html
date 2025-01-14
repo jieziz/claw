@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClawCloud 历史活动</title>
+    <script src="js/tailwindcss.js"></script>
+    <link href="css/font.css" rel="stylesheet">
+    <!-- 引入历史感字体 -->
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <style>
+        /* 复用现有样式 */
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: url('assets/old-paper-texture.jpg') no-repeat center center fixed; /* 居中并固定背景 */
+            background-size: cover; /* 让背景图覆盖整个页面 */
+            animation: scrollBackground 60s linear infinite;
+        }
+
+        @keyframes scrollBackground {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
+        /* 表头背景色变浅 */
+        th {
+            background: rgba(109, 76, 65, 0.3); 
+            color: white;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1); /* 边框半透明 */
+        }
+        /* 表格内容更透明 */
+        td {
+            font-size: 0.95rem;
+            background-color: rgba(255, 255, 255, 0.4); /* 调整透明度为 0.4 */
+            padding: 1rem;
+            border: 1px solid rgba(226, 232, 240, 0.3); /* 边框更透明 */
+        }
+
+        /* 奇数行更透明 */
+        tbody tr:nth-child(odd) {
+            background-color: rgba(249, 250, 251, 0.3); /* 调整透明度为 0.3 */
+        }
+
+
+        tbody tr:hover {
+            background-color: rgba(237, 242, 247, 0.7); /* 鼠标悬停时高亮 */
+            transition: background-color 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            table {
+                width: 100% !important;
+                min-width: 100%;
+                overflow-x: auto;
+            }
+
+            thead {
+                display: none;
+            }
+
+            tbody tr {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 1rem;
+                width: 100%;
+                border: 1px solid #e2e8f0;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                background-color: rgba(255, 255, 255, 0.7); /* 移动端表格背景更透明 */
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            tbody td {
+                display: flex;
+                justify-content: space-between;
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #e2e8f0;
+            }
+
+            tbody td:last-child {
+                border-bottom: none;
+            }
+
+            tbody td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                margin-right: 1rem;
+                color: #4a5568;
+            }
+        }
+
+        /* 新增样式 */
+        .header-overlay {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .table-container {
+            background-color: transparent; /* 表格容器背景透明 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        /* 历史活动标题样式 */
+        .table-container h2 {
+            font-family: 'Cinzel', serif; /* 使用历史感字体 */
+            font-size: 2.5rem; /* 标题字体更大 */
+            font-weight: bold;
+            color: #4a2c2a; /* 深褐色，更具历史感 */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* 文字阴影 */
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 0.5rem; /* 为下划线留出空间 */
+        }
+
+        /* 标题下划线效果 */
+        .table-container h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, rgba(88, 65, 57, 0.8), rgba(189, 165, 32, 0.6)); /* 渐变色下划线 */
+            border-radius: 2px;
+        }
+
+        .table-container table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 表格阴影 */
+        }
+
+        /* 顶部导航样式优化 */
+        header {
+            background: rgba(73, 47, 36, 0.9); /* 深褐色背景 */
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3); /* 复古金色边框 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 阴影效果 */
+        }
+
+        header nav a {
+            font-size: 1rem;
+            color: rgba(255, 215, 0, 0.9); /* 复古金色文字 */
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* 文字阴影 */
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        header nav a:hover {
+            color: rgba(255, 215, 0, 1); /* 悬停时更亮的金色 */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 悬停时更强的阴影 */
+        }
+
+        header img {
+            filter: sepia(0.5) brightness(0.9); /* 给Logo增加复古效果 */
+        }
+
+        /* Logo 旁的文字样式 */
+        .logo-text {
+            font-size: 1.2rem;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* 文字阴影 */
+            margin-left: 0.5rem; /* 与Logo的间距 */
+        }
+    </style>
+</head>
+
+<body class="text-gray-800">
+    <!-- 顶部导航 -->
+    <header class="relative">
+        <div class="absolute inset-0 bg-cover opacity-80 header-overlay" style="background-image: url('assets/banner-vps.webp');">
+        </div>
+        <div class="relative container mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center">
+                    <img src="assets/log.png" alt="ClawCloud Logo" class="h-8 md:h-10">
+                    <span class="logo-text">CLAW CLOUD</span> <!-- 添加的文字 -->
+                </div>
+                <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+                <nav id="mobile-menu" class="hidden md:flex space-x-4 md:space-x-6">
+                    <a href="https://claw.ink" class="text-white hover:text-green-200 text-sm md:text-base">首页</a>
+                    <a href="https://clawcloudsingaporeprivatelimited.sjv.io/anv0AZ" target="_blank"
+                        class="text-white hover:text-green-200 text-sm md:text-base">官网</a>
+                    <a href="https://t.me/clawCloudActivityChannel" target="_blank"
+                        class="text-white hover:text-green-200 text-sm md:text-base">Telegram群组</a>
+                    <a href="lg.html"
+                        class="text-white hover:text-green-200 text-sm md:text-base">Looking Glass</a>
+                    <a href="history.html" class="text-white hover:text-green-200 text-sm md:text-base">历史活动</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 历史活动表格 -->
+    <div class="container mx-auto px-4 md:px-6 py-8 md:py-12 overflow-x-auto table-container">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6">历史活动</h2>
+        <table class="min-w-full border table-auto">
+            <thead>
+                <tr>
+                    <th class="py-3 px-4 md:py-4 md:px-6 text-left">优惠价</th>
+                    <th class="py-3 px-4 md:py-4 md:px-6 text-left">配置</th>
+                    <th class="py-3 px-4 md:py-4 md:px-6 text-left">官网正价</th>
+                    <th class="py-3 px-4 md:py-4 md:px-6 text-left">优惠</th>
+                    <th class="py-3 px-4 md:py-4 md:px-6 text-left">获得方式</th>
+                    <th class="py-3 px-4 md:py-4 md:px-6 text-left">上线日期</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠价">8.4刀季付(2.8刀/月)</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">
+                        1C/1G/20G/500G/1000M
+                    </td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="官网正价">3.5刀/月</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠">20%</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="获得方式">AFF 8折优惠码</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="上线日期">2024-09</td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠价">10.5刀半年付(1.75刀/月)</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">
+                        1C/1G/20G/500G/1000M
+                    </td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="官网正价">3.5刀/月</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠">50%</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="获得方式">官方活动(存量较少)</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="上线日期">2023-02-01</td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠价">3刀月付</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">
+                        VDS/2C2G/40G/1T/1000M
+                    </td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="官网正价">10刀/月</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠">70%</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="获得方式">LET闪购-10台</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="上线日期">2023-03-01</td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠价">4刀月付</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">
+                        VDS/2C2G/40G/1T/1000M
+                    </td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="官网正价">10刀/月</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠">60%</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="获得方式">官方活动</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="上线日期">2023-04-01</td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠价">8刀月付</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">
+                        VDS/2C/8G/100G/2T/1000M
+                    </td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="官网正价">20刀/月</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠">60%</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="获得方式">黑五特价</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="上线日期">2023-05-01</td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠价">33.6刀半年付(5.6刀/月)</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">
+                        VDS/2C/4G/80G/1T/1000M
+                    </td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="官网正价">14刀/月</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠">60%</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="获得方式">AFF 暗线活动</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="上线日期">2023-06-01</td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠价">18刀月付</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">
+                        VDS/4C/8G/200G/2T/1000M
+                    </td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="官网正价">30刀/月</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠">40%</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="获得方式">AFF 暗线活动</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="上线日期">2023-07-01</td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠价">48刀月付</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">
+                        VDS/8C/16G/600G/4T/1000M
+                    </td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="官网正价">80刀/月</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠">40%</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="获得方式">AFF 暗线活动</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="上线日期">2023-08-01</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="js/common.js"></script>
+</body>
+
+</html>

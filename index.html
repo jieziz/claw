@@ -297,6 +297,14 @@
                 color: #4a5568;
             }
         }
+
+       /* Logo 旁的文字样式 */
+       .logo-text {
+            font-size: 1.2rem;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* 文字阴影 */
+            margin-left: 0.5rem; /* 与Logo的间距 */
+        }
     </style>
 </head>
 
@@ -331,7 +339,8 @@
         </div>
         <div class="relative container mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
             <div class="flex items-center space-x-4">
-                <img src="assets/log.jpg" alt="ClawCloud Logo" class="h-8 md:h-10">
+                <img src="assets/log.png" alt="ClawCloud Logo" class="h-8 md:h-10">
+                <span class="logo-text">CLAW CLOUD</span> <!-- 添加的文字 -->
                 <!-- 汉堡菜单（移动端） -->
                 <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -346,8 +355,9 @@
                         class="text-white hover:text-green-200 text-sm md:text-base">官网</a>
                     <a href="https://t.me/clawCloudActivityChannel" target="_blank"
                         class="text-white hover:text-green-200 text-sm md:text-base">Telegram群组</a>
-                    <a href="https://claw.ink/lg.html"
+                    <a href="lg.html"
                         class="text-white hover:text-green-200 text-sm md:text-base">Looking Glass</a>
+                    <a href="history.html" class="text-white hover:text-green-200 text-sm md:text-base">历史活动
                 </nav>
             </div>
         </div>
