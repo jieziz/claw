@@ -256,6 +256,63 @@
             position: relative;
             z-index: 1;
         }
+           /* 隐藏方式文字的样式 */
+        .hidden-method {
+            margin-left: 8px;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* 隐藏文字的默认样式 */
+        .hidden-link {
+            color: rgba(0, 0, 0, 0.5); /* 半透明黑色文字 */
+            text-decoration: none; /* 去掉下划线 */
+            cursor: pointer; /* 鼠标指针 */
+            transition: color 0.3s ease, opacity 0.3s ease; /* 平滑过渡 */
+            opacity: 0.7; /* 默认透明度 */
+        }
+
+        /* 图标样式 */
+        .hidden-link i {
+            margin-right: 4px; /* 图标与文字的间距 */
+        }
+
+        /* 鼠标悬停时文字效果 */
+        .hidden-method:hover .hidden-link {
+            color: #007bff; /* 蓝色文字 */
+            opacity: 1; /* 完全不透明 */
+            text-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* 文字阴影 */
+        }
+
+        /* 鼠标悬停时显示提示信息 */
+        .hidden-method:hover::before {
+            content: "加入TG群，每月可获取4刀名额"; /* 提示信息 */
+            position: absolute;
+            top: -40px; /* 提示框的位置 */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(51, 51, 51, 0.9); /* 半透明背景 */
+            color: white; /* 提示框文字颜色 */
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 1000;
+            backdrop-filter: blur(4px); /* 背景模糊效果 */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 阴影效果 */
+        }
+
+        /* 提示框的小箭头 */
+        .hidden-method:hover::after {
+            content: "";
+            position: absolute;
+            top: -12px; /* 箭头位置 */
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: rgba(51, 51, 51, 0.9) transparent transparent transparent; /* 箭头颜色 */
+        }   
     </style>
 </head>
 
@@ -346,7 +403,13 @@
                     </td>
                     <td class="py-3 px-4 md:py-4 md:px-6" data-label="官网正价">10刀/月</td>
                     <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠">60%</td>
-                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="获得方式">官方活动</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="获得方式">官方活动
+                        <span class="hidden-method">
+                            <a href="https://t.me/your_telegram_group" target="_blank" class="hidden-link">
+                                <i class="fas fa-question-circle"></i> 隐藏方式
+                            </a>
+                        </span>
+                    </td>
                     <td class="py-3 px-4 md:py-4 md:px-6" data-label="上线日期">首发/黑五</td>
                 </tr>
                 <tr class="border-b hover:bg-gray-50">
