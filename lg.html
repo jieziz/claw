@@ -48,6 +48,34 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* 文字阴影 */
             margin-left: 0.5rem; /* 与Logo的间距 */
         }
+
+        /* 移动端下拉菜单样式 */
+        #mobile-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #50CA7D 0%, #1a202c 100%);
+            display: none;
+            flex-direction: column;
+            padding: 1rem 0;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        #mobile-menu a {
+            color: white;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        #mobile-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        #mobile-menu-button.active + #mobile-menu {
+            display: flex;
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -75,24 +103,33 @@
 
     <!-- 顶部导航 -->
     <header class="gradient-bg">
-        <div class="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+        <div class="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between relative">
             <div class="flex items-center space-x-4">
                 <img src="assets/log.png" alt="ClawCloud Logo" class="h-8 md:h-10">
-                <span class="logo-text">CLAW CLOUD</span> <!-- 添加的文字 -->
-                <!-- 汉堡菜单（移动端） -->
-                <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
-                <nav id="mobile-menu" class="hidden md:flex space-x-4 md:space-x-6">
-                    <a href="https://claw.ink" target="_blank" class="text-white hover:text-green-200 text-sm md:text-base">首页</a>
-                    <a href="https://clawcloudsingaporeprivatelimited.sjv.io/anv0AZ" target="_blank" class="text-white hover:text-green-200 text-sm md:text-base">官网</a>
-                    <a href="https://t.me/clawCloudActivityChannel" target="_blank" class="text-white hover:text-green-200 text-sm md:text-base">Telegram群组</a>
-                    <a href="lg.html" class="text-white hover:text-green-200 text-sm md:text-base">Looking Glass</a>
-                    <a href="history.html" class="text-white hover:text-green-200 text-sm md:text-base">历史活动</a>
-                </nav>
+                <span class="logo-text">CLAW CLOUD</span>
             </div>
+            <!-- 汉堡菜单（移动端） -->
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            <!-- 桌面导航菜单 -->
+            <nav class="hidden md:flex space-x-4 md:space-x-6">
+                <a href="https://claw.ink" target="_blank" class="text-white hover:text-green-200 text-sm md:text-base">首页</a>
+                <a href="https://clawcloudsingaporeprivatelimited.sjv.io/anv0AZ" target="_blank" class="text-white hover:text-green-200 text-sm md:text-base">官网</a>
+                <a href="https://t.me/clawCloudActivityChannel" target="_blank" class="text-white hover:text-green-200 text-sm md:text-base">Telegram群组</a>
+                <a href="lg.html" class="text-white hover:text-green-200 text-sm md:text-base">Looking Glass</a>
+                <a href="history.html" class="text-white hover:text-green-200 text-sm md:text-base">历史活动</a>
+            </nav>
+            <!-- 移动端下拉菜单 -->
+            <nav id="mobile-menu" class="md:hidden">
+                <a href="https://claw.ink" target="_blank">首页</a>
+                <a href="https://clawcloudsingaporeprivatelimited.sjv.io/anv0AZ" target="_blank">官网</a>
+                <a href="https://t.me/clawCloudActivityChannel" target="_blank">Telegram群组</a>
+                <a href="lg.html">Looking Glass</a>
+                <a href="history.html">历史活动</a>
+            </nav>
         </div>
     </header>
 
@@ -218,6 +255,21 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // 移动端菜单切换逻辑
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuButton.addEventListener('click', () => {
+            menuButton.classList.toggle('active');
+            if (mobileMenu.style.display === 'flex') {
+                mobileMenu.style.display = 'none';
+            } else {
+                mobileMenu.style.display = 'flex';
+            }
+        });
+    </script>
 
     <script src="js/common.js"></script>
 </body>

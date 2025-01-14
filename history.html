@@ -9,6 +9,7 @@
     <link href="css/font.css" rel="stylesheet">
     <!-- 引入历史感字体 -->
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* 复用现有样式 */
         body {
@@ -40,16 +41,10 @@
         /* 表格内容更透明 */
         td {
             font-size: 0.95rem;
-            background-color: rgba(255, 255, 255, 0.4); /* 调整透明度为 0.4 */
+            background-color: rgba(249, 250, 251, 0.3); /* 调整透明度为 0.3 */
             padding: 1rem;
             border: 1px solid rgba(226, 232, 240, 0.3); /* 边框更透明 */
         }
-
-        /* 奇数行更透明 */
-        tbody tr:nth-child(odd) {
-            background-color: rgba(249, 250, 251, 0.3); /* 调整透明度为 0.3 */
-        }
-
 
         tbody tr:hover {
             background-color: rgba(237, 242, 247, 0.7); /* 鼠标悬停时高亮 */
@@ -75,7 +70,7 @@
                 border: 1px solid #e2e8f0;
                 border-radius: 0.5rem;
                 padding: 1rem;
-                background-color: rgba(255, 255, 255, 0.7); /* 移动端表格背景更透明 */
+                background-color: rgba(255, 255, 255, 0.3); /* 移动端表格背景更透明 */
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
 
@@ -170,6 +165,97 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* 文字阴影 */
             margin-left: 0.5rem; /* 与Logo的间距 */
         }
+
+        /* 移动端下拉菜单样式 */
+       #mobile-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #50CA7D 0%, #1a202c 100%);
+            display: none;
+            flex-direction: column;
+            padding: 1rem 0;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        #mobile-menu a {
+            color: white;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        #mobile-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        #mobile-menu-button.active + #mobile-menu {
+            display: flex;
+        }
+
+        /* 已绝版行的样式 */
+        .discontinued {
+            position: relative; /* 为伪元素定位做准备 */
+            background-color: #fff0f0; /* 浅红色背景 */
+            border-left: 4px solid #ff4d4d; /* 左侧红色边框 */
+            color: #8B0000; /* 暗红色文字 */
+            font-weight: bold; /* 文字加粗 */
+        }
+
+        /* 在已绝版行的最右侧添加图标 */
+        .discontinued::after {
+            content: "\f05e"; /* Font Awesome 的 ban 图标 */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            right: 16px; /* 距离右侧的距离 */
+            top: 50%;
+            transform: translateY(-50%);
+            color: #ff4d4d; /* 更醒目的红色 */
+            font-size: 1.5em; /* 更大的图标 */
+        }
+
+        /* 提示框容器 */
+        .discontinued:hover .tooltip {
+            display: block; /* 鼠标悬停时显示 */
+        }
+
+        /* 提示框样式 */
+        .tooltip {
+            display: none; /* 默认隐藏 */
+            position: absolute;
+            top: -50px; /* 提示框的位置 */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f4e9d8; /* 复古纸张颜色 */
+            color: #5a3a22; /* 复古文字颜色 */
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-family: 'Pacifico', cursive; /* 手写风格字体 */
+            font-size: 16px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* 阴影效果 */
+            border: 1px solid #d4b48c; /* 复古边框 */
+            z-index: 1000;
+        }
+
+        /* 提示框的小箭头 */
+        .tooltip::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -10px; /* 箭头位置 */
+            transform: translateX(-50%);
+            border-width: 10px;
+            border-style: solid;
+            border-color: #f4e9d8 transparent transparent transparent; /* 箭头颜色 */
+        }
+
+        /* 确保单元格内容不受伪元素影响 */
+        .discontinued td {
+            position: relative;
+            z-index: 1;
+        }
     </style>
 </head>
 
@@ -178,29 +264,33 @@
     <header class="relative">
         <div class="absolute inset-0 bg-cover opacity-80 header-overlay" style="background-image: url('assets/banner-vps.webp');">
         </div>
-        <div class="relative container mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+        <div class="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between relative">
             <div class="flex items-center space-x-4">
-                <div class="flex items-center">
-                    <img src="assets/log.png" alt="ClawCloud Logo" class="h-8 md:h-10">
-                    <span class="logo-text">CLAW CLOUD</span> <!-- 添加的文字 -->
-                </div>
-                <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
-                <nav id="mobile-menu" class="hidden md:flex space-x-4 md:space-x-6">
-                    <a href="https://claw.ink" class="text-white hover:text-green-200 text-sm md:text-base">首页</a>
-                    <a href="https://clawcloudsingaporeprivatelimited.sjv.io/anv0AZ" target="_blank"
-                        class="text-white hover:text-green-200 text-sm md:text-base">官网</a>
-                    <a href="https://t.me/clawCloudActivityChannel" target="_blank"
-                        class="text-white hover:text-green-200 text-sm md:text-base">Telegram群组</a>
-                    <a href="lg.html"
-                        class="text-white hover:text-green-200 text-sm md:text-base">Looking Glass</a>
-                    <a href="history.html" class="text-white hover:text-green-200 text-sm md:text-base">历史活动</a>
-                </nav>
+                <img src="assets/log.png" alt="ClawCloud Logo" class="h-8 md:h-10">
+                <span class="logo-text">CLAW CLOUD</span>
             </div>
+            <!-- 汉堡菜单（移动端） -->
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            <!-- 桌面导航菜单 -->
+            <nav class="hidden md:flex space-x-4 md:space-x-6">
+                <a href="https://claw.ink" target="_blank" class="text-white hover:text-green-200 text-sm md:text-base">首页</a>
+                <a href="https://clawcloudsingaporeprivatelimited.sjv.io/anv0AZ" target="_blank" class="text-white hover:text-green-200 text-sm md:text-base">官网</a>
+                <a href="https://t.me/clawCloudActivityChannel" target="_blank" class="text-white hover:text-green-200 text-sm md:text-base">Telegram群组</a>
+                <a href="lg.html" class="text-white hover:text-green-200 text-sm md:text-base">Looking Glass</a>
+                <a href="history.html" class="text-white hover:text-green-200 text-sm md:text-base">历史活动</a>
+            </nav>
+            <!-- 移动端下拉菜单 -->
+            <nav id="mobile-menu" class="md:hidden">
+                <a href="https://claw.ink" target="_blank">首页</a>
+                <a href="https://clawcloudsingaporeprivatelimited.sjv.io/anv0AZ" target="_blank">官网</a>
+                <a href="https://t.me/clawCloudActivityChannel" target="_blank">Telegram群组</a>
+                <a href="lg.html">Looking Glass</a>
+                <a href="history.html">历史活动</a>
+            </nav>
         </div>
     </header>
 
@@ -229,7 +319,7 @@
                     <td class="py-3 px-4 md:py-4 md:px-6" data-label="获得方式">AFF 8折优惠码</td>
                     <td class="py-3 px-4 md:py-4 md:px-6" data-label="上线日期">2024-09</td>
                 </tr>
-                <tr class="border-b hover:bg-gray-50">
+                <tr class="border-b hover:bg-gray-50 discontinued">
                     <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠价">10.5刀半年付(1.75刀/月)</td>
                     <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">
                         1C/1G/20G/500G/1000M
@@ -239,7 +329,7 @@
                     <td class="py-3 px-4 md:py-4 md:px-6" data-label="获得方式">官方活动(少于200台)</td>
                     <td class="py-3 px-4 md:py-4 md:px-6" data-label="上线日期">首发/黑五</td>
                 </tr>
-                <tr class="border-b hover:bg-gray-50">
+                <tr class="border-b hover:bg-gray-50 discontinued">
                     <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠价">3刀月付</td>
                     <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">
                         VDS/2C2G/40G/1T/1000M
@@ -266,7 +356,17 @@
                     </td>
                     <td class="py-3 px-4 md:py-4 md:px-6" data-label="官网正价">20刀/月</td>
                     <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠">60%</td>
-                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="获得方式">黑五特价</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="获得方式">官方活动</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="上线日期">首发/黑五</td>
+                </tr>
+                <tr class="border-b hover:bg-gray-50 discontinued">
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠价">18刀月付</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">
+                        VDS/4C/8G/200G/4T/1000M
+                    </td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="官网正价">30刀/月</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠">40%</td>
+                    <td class="py-3 px-4 md:py-4 md:px-6" data-label="获得方式">官方活动</td>
                     <td class="py-3 px-4 md:py-4 md:px-6" data-label="上线日期">首发/黑五</td>
                 </tr>
                 <tr class="border-b hover:bg-gray-50">
@@ -302,6 +402,31 @@
             </tbody>
         </table>
     </div>
+
+    <script>
+        // 移动端菜单切换逻辑
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuButton.addEventListener('click', () => {
+            menuButton.classList.toggle('active');
+            if (mobileMenu.style.display === 'flex') {
+                mobileMenu.style.display = 'none';
+            } else {
+                mobileMenu.style.display = 'flex';
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+        const discontinuedRows = document.querySelectorAll(".discontinued");
+        discontinuedRows.forEach(row => {
+            const tooltip = document.createElement("div");
+            tooltip.className = "tooltip";
+            tooltip.textContent = "很可惜，当前套餐已绝版";
+            row.appendChild(tooltip);
+        });
+    });
+    </script>
 
     <script src="js/common.js"></script>
 </body>

@@ -1,9 +1,3 @@
-// 汉堡菜单切换
-const mobileMenuButton = document.getElementById('mobile-menu-button');
-const mobileMenu = document.getElementById('mobile-menu');
-mobileMenuButton.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-});
 
 
 // 复制优惠码功能
