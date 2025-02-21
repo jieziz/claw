@@ -50,7 +50,7 @@ app.get('/categories', async (req, res) => {
 });
 
 // 获取产品列表接口
-app.get('/api/products/:categoryId', async (req, res) => {
+app.get('/products/:categoryId', async (req, res) => {
     try {
         const categoryId = req.params.categoryId;
         const products = await db.all(
@@ -65,7 +65,7 @@ app.get('/api/products/:categoryId', async (req, res) => {
 });
 
 // 添加新产品接口
-app.post('/api/products', express.json(), async (req, res) => {
+app.post('/products', express.json(), async (req, res) => {
     try {
         const {
             category_id,
@@ -97,7 +97,7 @@ app.post('/api/products', express.json(), async (req, res) => {
 });
 
 // 更新产品接口
-app.put('/api/products/:id', express.json(), async (req, res) => {
+app.put('/products/:id', express.json(), async (req, res) => {
     try {
         const productId = req.params.id;
         const updateData = req.body;
@@ -119,7 +119,7 @@ app.put('/api/products/:id', express.json(), async (req, res) => {
 });
 
 // 删除产品接口
-app.delete('/api/products/:id', async (req, res) => {
+app.delete('/products/:id', async (req, res) => {
     try {
         const productId = req.params.id;
         
