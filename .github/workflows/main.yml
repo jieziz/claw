@@ -13,6 +13,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Debug - List files
+        run: |
+          echo "Current directory:"
+          pwd
+          echo "Directory contents:"
+          ls -la
+          echo "Public directory contents:"
+          ls -la public/
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -62,6 +71,8 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
-          source: "public/*"
+          source: "public/"
           target: "/opt/1panel/apps/openresty/openresty/www/sites/claw.ink/index"
           strip_components: 1
+          overwrite: true
+          debug: true
