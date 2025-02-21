@@ -82,16 +82,6 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           script: |
-            # 检查目录和文件
-            echo "Checking directories and files..."
-            ls -la /www/wwwroot/claw.ink
-            ls -la /opt/clawcloud
-            
-            # 检查 Node.js 版本和环境
-            echo "Checking Node.js environment..."
-            node -v
-            npm -v
-            
             # 重启后端服务
             cd /opt/clawcloud
             mkdir -p config logs data
@@ -109,55 +99,25 @@ jobs:
             sudo mkdir -p /www/wwwlogs
             sudo chown -R $USER:$USER /www/wwwlogs
             
-            # 安装编译工具
+            # 安装编译工具和依赖
             sudo apt-get update
             sudo apt-get install -y python3 make gcc g++ build-essential sqlite3 libsqlite3-dev
-            
-            # 清理并重新安装依赖
-            rm -rf node_modules
-            rm -rf package-lock.json
             npm install -g node-gyp
             
-            # 安装依赖时强制重新编译
+            # 清理并重新安装依赖
+            rm -rf node_modules package-lock.json
             npm install --build-from-source
-            
-            # 特别处理 better-sqlite3
             npm install better-sqlite3 --build-from-source
-            
-            # 启动服务并检查状态
-            echo "Starting backend service..."
-            pm2 delete clawcloud || true
             
             # 设置环境变量
             echo "export SQLITE_DB_PATH=/opt/clawcloud/data/database.sqlite" >> ~/.bashrc
             source ~/.bashrc
             
+            # 重启服务
+            pm2 delete clawcloud || true
             pm2 start server.js --name clawcloud
             pm2 save
             
-            # 等待服务启动
-            sleep 5
-            
-            # 检查服务状态
-            echo "Checking service status..."
-            pm2 list
-            pm2 logs clawcloud --lines 20
-            
-            # 检查端口占用
-            echo "Checking port status..."
-            netstat -tulpn | grep LISTEN
-            
             # 检查 Nginx 配置和状态
-            echo "Checking Nginx status..."
             sudo systemctl is-active nginx || sudo systemctl start nginx
             nginx -t && nginx -s reload
-            systemctl status nginx
-            
-            # 测试 API 连接
-            echo "Testing API connection..."
-            curl -I http://localhost:3000/api/categories || echo "API not responding"
-            
-            # 检查错误日志
-            echo "Checking error logs..."
-            tail -n 50 /opt/clawcloud/logs/error.log || echo "No error log found"
-            tail -n 50 /www/wwwlogs/claw.ink.error.log || echo "No Nginx error log found"
