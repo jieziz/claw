@@ -33,7 +33,31 @@ jobs:
           strip_components: 1
 
       # 部署静态文件到网站目录
-      - name: Deploy static files to website
+      - name: Deploy HTML files
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          source: "public/*.html"
+          target: "/www/wwwroot/claw.ink"
+          strip_components: 1
+          overwrite: true
+
+      - name: Deploy assets
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          source: "public/assets/"
+          target: "/www/wwwroot/claw.ink"
+          strip_components: 1
+          overwrite: true
+
+      - name: Deploy CSS and JS
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SERVER_IP }}
@@ -41,8 +65,8 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           source: |
-            public/**
-            README.md
+            public/css/
+            public/js/
           target: "/www/wwwroot/claw.ink"
           strip_components: 1
           overwrite: true
