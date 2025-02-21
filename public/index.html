@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClawCloud 活动页</title>
+    <script src="js/tailwindcss.js"></script>
+    <link href="css/font.css" rel="stylesheet">
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+
+        /* Tab active style */
+        .tab-active h2 {
+            color: #1a202c;
+        }
+
+        .tab-active p {
+            color: #4a5568;
+        }
+
+        .tab-active {
+            border-bottom: 3px solid #51CA7D;
+        }
+
+        /* Table header style */
+        th {
+            background-color: #f3f4f6;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        td {
+            font-size: 0.95rem;
+        }
+
+        .btn {
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #1a202c;
+        }
+
+        /* Zebra striping for table */
+        tbody tr:nth-child(odd) {
+            background-color: #f9fafb;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .animate-gradient {
+            background-size: 300% 300%;
+            /* 增加渐变色范围 */
+            animation: gradient 5s ease infinite;
+            /* 调整动画速度 */
+        }
+
+        /* 新增样式 */
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #50CA7D 0%, #1a202c 100%);
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #50CA7D 0%, #1a202c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #50CA7D, #1a202c);
+            border-radius: 2px;
+        }
+
+        /* 基础按钮样式 */
+        .order-button {
+            display: inline-block;
+            padding: 10px 20px;
+            /* 适中的内边距 */
+            font-size: 14px;
+            /* 适中的字体 */
+            font-weight: 600;
+            /* 中等字重 */
+            color: #fff;
+            background: linear-gradient(135deg, #ff6b6b, #fb2234);
+            /* 红色渐变色背景 */
+            border: none;
+            border-radius: 14px;
+            /* 适中的圆角 */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            /* 柔和的阴影 */
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            /* 隐藏溢出的效果 */
+            transition: all 0.3s ease;
+            /* 平滑过渡 */
+        }
+
+        /* 悬停效果：背景光晕和微弹动画 */
+        .order-button:hover {
+            background: linear-gradient(135deg, #ff4757, #fb2234);
+            /* 渐变色反转 */
+            transform: scale(1.05);
+            /* 轻微放大 */
+            box-shadow: 0 6px 12px rgba(255, 71, 87, 0.4);
+            /* 红色光晕阴影 */
+            animation: bounce 0.5s ease, glow 1.5s infinite;
+            /* 微弹动画 + 光晕动画 */
+        }
+
+        /* 微弹动画 */
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: scale(1.05);
+            }
+
+            50% {
+                transform: scale(0.95);
+            }
+        }
+
+        /* 光晕动画 */
+        @keyframes glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px rgba(255, 71, 87, 0.6);
+            }
+
+            50% {
+                box-shadow: 0 0 20px rgba(255, 71, 87, 0.8);
+            }
+        }
+
+        /* 点击效果：涟漪动画 */
+        .order-button:active::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.4);
+            /* 半透明白色 */
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            animation: ripple 0.6s ease-out;
+            /* 涟漪动画 */
+        }
+
+        /* 涟漪动画 */
+        @keyframes ripple {
+            to {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* 更明显的呼吸灯效果 */
+        @keyframes breathe {
+
+            0%,
+            100% {
+                opacity: 0.8;
+                /* 透明度更低 */
+                transform: scale(0.98);
+                /* 缩小更多 */
+            }
+
+            50% {
+                opacity: 1;
+                /* 完全不透明 */
+                transform: scale(1.05);
+                /* 放大更多 */
+            }
+        }
+
+        .order-button.pulse {
+            animation: breathe 1.5s infinite;
+            /* 加快呼吸灯动画速度 */
+        }
+
+        /* 按钮文字的动态效果 */
+        .order-button span {
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .order-button:hover span {
+            transform: translateY(-2px);
+            /* 文字轻微上移 */
+        }
+
+        /* 按钮背景的动态粒子效果 */
+        .order-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 10%, transparent 10.01%);
+            background-size: 10px 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .order-button:hover::before {
+            opacity: 1;
+            /* 悬停时显示粒子效果 */
+        }
+
+
+        /* 移动端表格样式 */
+        @media (max-width: 768px) {
+            table {
+                width: 100% !important;
+                min-width: 100%;
+                overflow-x: auto;
+            }
+
+            thead {
+                display: none;
+            }
+
+            tbody tr {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 1rem;
+                /* 设置上下间距 */
+                width: 100%;
+                /* 卡片宽度始终占满屏幕 */
+                border: 1px solid #e2e8f0;
+                border-radius: 0.5rem;
+                padding: 1rem;
+                background-color: white;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                /* 添加轻微阴影 */
+            }
+
+            tbody td {
+                display: flex;
+                justify-content: space-between;
+                padding: 0.5rem 0;
+                border-bottom: 1px solid #e2e8f0;
+            }
+
+            tbody td:last-child {
+                border-bottom: none;
+            }
+
+            tbody td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                margin-right: 1rem;
+                color: #4a5568;
+            }
+        }
+
+       /* Logo 旁的文字样式 */
+       .logo-text {
+            font-size: 1.2rem;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* 文字阴影 */
+            margin-left: 0.5rem; /* 与Logo的间距 */
+        }
+
+      /* 移动端下拉菜单样式 */
+       #mobile-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #50CA7D 0%, #1a202c 100%);
+            display: none;
+            flex-direction: column;
+            padding: 1rem 0;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            z-index: 1000; /* 确保菜单在最上层 */
+
+        }
+
+        #mobile-menu a {
+            color: white;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        #mobile-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        #mobile-menu-button.active + #mobile-menu {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 text-gray-800">
+    <!-- 顶部横幅 -->
+    <!-- <div id="top-banner" class="py-4 relative w-full bg-gradient-to-r from-green-500 to-green-700 shadow-lg">
+        <div class="container mx-auto px-4 md:px-8 flex items-center justify-center h-12">
+            <p class="text-white font-medium text-xs md:text-base flex items-center">
+                <span class="mr-2">🎉</span>
+                使用优惠码
+                <span id="coupon-code"
+                    class="font-bold bg-white text-green-700 px-2 py-1 rounded-md mx-1 cursor-pointer hover:bg-green-100 transition-colors"
+                    onclick="copyCouponCode()">Z3ZUF1RT5F</span>
+                购买任意产品，选择季度支付即可享受 8 折优惠</span>
+            </p>
+            <button id="close-banner" class="absolute top-1/2 right-4 md:right-8 transform -translate-y-1/2 text-white hover:text-gray-200 focus:outline-none">
+            <button id="close-banner"
+                class="absolute top-1/2 right-4 md:right-8 transform -translate-y-1/2 text-white hover:text-gray-200 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+    </div>
+  <div id="copy-notification" class="fixed top-4 right-0 bg-green-600 text-white px-4 py-2 rounded-md shadow-lg transform translate-x-full transition-transform duration-300">
+    </div>
+-->
+    <!-- 顶部导航和背景 -->
+    <header class="relative bg-green-900">
+        <div class="absolute inset-0 bg-cover opacity-80" style="background-image: url('assets/banner-vps.webp');">
+        </div>
+
+        <div class="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between relative">
+            <div class="flex items-center space-x-4">
+                <img src="assets/log.png" alt="ClawCloud Logo" class="h-8 md:h-10">
+                <span class="logo-text">CLAW CLOUD</span>
+            </div>
+            <!-- 汉堡菜单（移动端） -->
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            <!-- 桌面导航菜单 -->
+            <nav class="hidden md:flex space-x-4 md:space-x-6">
+                <a href="https://claw.ink" target="_blank" class="text-white hover:text-green-200 text-sm md:text-base">首页</a>
+                <a href="https://clawcloudsingaporeprivatelimited.sjv.io/anv0AZ" target="_blank" class="text-white hover:text-green-200 text-sm md:text-base">官网</a>
+                <a href="https://t.me/clawCloudActivityChannel" target="_blank" class="text-white hover:text-green-200 text-sm md:text-base">Telegram群组</a>
+                <a href="lg.html" class="text-white hover:text-green-200 text-sm md:text-base">Looking Glass</a>
+                <a href="history.html" class="text-white hover:text-green-200 text-sm md:text-base">历史活动</a>
+            </nav>
+            <!-- 移动端下拉菜单 -->
+            <nav id="mobile-menu" class="md:hidden">
+                <a href="https://claw.ink" target="_blank">首页</a>
+                <a href="https://clawcloudsingaporeprivatelimited.sjv.io/anv0AZ" target="_blank">官网</a>
+                <a href="https://t.me/clawCloudActivityChannel" target="_blank">Telegram群组</a>
+                <a href="lg.html">Looking Glass</a>
+                <a href="history.html">历史活动</a>
+            </nav>
+        </div>
+
+        <div class="relative container mx-auto px-4 md:px-6 pt-12 md:pt-24 pb-16 md:pb-28 text-center text-white">
+            <!-- 标题 -->
+            <h1
+                class="text-3xl md:text-6xl font-extrabold bg-gradient-to-r from-red-500 via-orange-400 via-yellow-400 via-purple-400 to-blue-500 bg-clip-text text-transparent animate-gradient">
+                CLAWCLOUD 1月最新活动
+            </h1>
+
+            <!-- 活动时间 -->
+            <div class="mt-4 md:mt-6 space-y-3 md:space-y-4">
+                <p class="text-base md:text-xl font-medium flex items-center justify-center">
+                    <svg class="w-5 h-5 md:w-6 md:h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    活动时间：从 1月9日 13:00 到 1月23日 13:00
+                </p>
+                <p class="text-base md:text-xl font-medium flex items-center justify-center">
+                    <svg class="w-5 h-5 md:w-6 md:h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    优惠码发布时间：从 1月9日 到 1月23日
+                <p class="text-xs md:text-base font-medium flex items-center justify-center">红色产品是限量款，限量款优惠码将每天不定时发布。
+                </p>
+                </p>
+            </div>
+
+            <!-- 温馨提示 -->
+            <div class="mt-4 md:mt-6 p-3 md:p-4 bg-white bg-opacity-10 rounded-lg inline-block">
+                <p class="text-xs md:text-base text-red-300 flex items-center justify-center">
+                    <svg class="w-4 h-4 md:w-5 md:h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                        </path>
+                    </svg>
+                    温馨提示：如果链接打不开，请关闭代理和广告拦截插件。
+                </p>
+            </div>
+        </div>
+
+    </header>
+
+    <!-- 产品选项卡 -->
+    <div class="bg-white">
+        <div class="container mx-auto px-4 md:px-6">
+            <div id="tabs" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-[repeat(auto-fit,minmax(200px,1fr))]">
+                <!-- 这里的内容将由JS动态加载 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 定价表格 -->
+    <div class="container mx-auto px-4 md:px-6 py-8 md:py-12 overflow-x-auto">
+        <!-- 表格内容将由JS动态加载 -->
+    </div>
+
+    <script>
+        let activeTab = ''; // 当前激活的tab
+
+        // 获取产品类别数据
+        async function fetchProductCategories() {
+            try {
+                const response = await fetch('/api/categories');
+                const categories = await response.json();
+                // 数据库已经排序，这里不需要再次排序
+                renderTabs(categories);
+                // 默认选中第一个tab
+                if(categories.length > 0) {
+                    activeTab = categories[0].id;
+                    document.querySelector(`[data-tab="${activeTab}"]`).classList.add('tab-active');
+                    fetchProductList(activeTab);
+                }
+            } catch (error) {
+                console.error('获取产品类别失败:', error);
+            }
+        }
+
+        // 渲染tab选项卡
+        function renderTabs(categories) {
+            const tabsContainer = document.getElementById('tabs');
+            const tabsHtml = categories.map((category, index) => `
+                <div data-tab="${category.id}" 
+                     class="tab-item py-6 md:py-8 text-center border-b ${index !== categories.length - 1 ? 'md:border-r' : ''} cursor-pointer card-hover">
+                    <h2 class="text-lg font-bold">${category.name}</h2>
+                    <p class="text-gray-600 mt-2 text-sm md:text-base">${category.description}</p>
+                </div>
+            `).join('');
+            
+            tabsContainer.innerHTML = tabsHtml;
+
+            // 绑定tab点击事件
+            document.querySelectorAll('.tab-item').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
+        }
+
+        // 切换tab
+        function switchTab(tabId) {
+            // 移除所有tab的激活状态
+            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('tab-active'));
+            // 激活当前tab
+            document.querySelector(`[data-tab="${tabId}"]`).classList.add('tab-active');
+            activeTab = tabId;
+            // 获取对应产品列表
+            fetchProductList(activeTab);
+        }
+
+        // 获取产品列表数据
+        async function fetchProductList(categoryId) {
+            try {
+                const response = await fetch(`/api/products/${categoryId}`);
+                const products = await response.json();
+                renderProductTable(products);
+            } catch (error) {
+                console.error('获取产品列表失败:', error);
+            }
+        }
+
+        // 渲染产品表格
+        function renderProductTable(products) {
+            const tableHtml = `
+                <table class="min-w-full border table-auto">
+                    <thead>
+                        <tr>
+                            <th class="py-3 px-4 md:py-4 md:px-6 text-left">配置</th>
+                            <th class="py-3 px-4 md:py-4 md:px-6 text-left">折扣价</th>
+                            <th class="py-3 px-4 md:py-4 md:px-6 text-left">适用区域</th>
+                            <th class="py-3 px-4 md:py-4 md:px-6 text-left">折扣</th>
+                            <th class="py-3 px-4 md:py-4 md:px-6 text-left">规则</th>
+                            <th class="py-3 px-4 md:py-4 md:px-6 text-left">优惠码</th>
+                            <th class="py-3 px-4 md:py-4 md:px-6 text-left">立即购买</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${products.map(product => `
+                            <tr class="border-b hover:bg-gray-50 ${product.is_limited ? 'text-red-600' : ''}">
+                                <td class="py-3 px-4 md:py-4 md:px-6" data-label="配置">
+                                    ${product.is_limited ? `
+                                        <img src="assets/limit.gif" alt="限量" 
+                                             class="w-5 h-5 md:w-6 md:h-6 inline-block align-middle mr-2">
+                                    ` : ''}
+                                    <span class="inline-block align-middle">${product.config}</span>
+                                </td>
+                                <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣价">${product.discount_price}</td>
+                                <td class="py-3 px-4 md:py-4 md:px-6" data-label="适用区域">${product.regions}</td>
+                                <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣">${product.discount}</td>
+                                <td class="py-3 px-4 md:py-4 md:px-6" data-label="规则">${product.rules}</td>
+                                <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠码">${product.coupon_code}</td>
+                                <td class="py-3 px-4 md:py-4 md:px-6" data-label="立即购买">
+                                    <a href="${product.purchase_link}" 
+                                       class="${product.is_limited ? 'order-button pulse' : 'text-blue-500 hover:underline'}"
+                                       target="_blank">
+                                       点击下单
+                                    </a>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            document.querySelector('.container.overflow-x-auto').innerHTML = tableHtml;
+        }
+
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchProductCategories();
+        });
+
+        // 移动端菜单切换逻辑
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuButton.addEventListener('click', () => {
+            menuButton.classList.toggle('active');
+            if (mobileMenu.style.display === 'flex') {
+                mobileMenu.style.display = 'none';
+            } else {
+                mobileMenu.style.display = 'flex';
+            }
+        });
+        
+    </script>
+    
+    <script src="js/common.js"></script>
+
+</body>
+
+</html>

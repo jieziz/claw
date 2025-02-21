@@ -13,12 +13,55 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Create necessary directories
+        run: |
+          mkdir -p data
+          mkdir -p logs
+
       - name: Deploy to Server
         uses: appleboy/scp-action@master
         with:
-          host: ${{ secrets.SERVER_IP }}  # 服务器 IP
-          username: ${{ secrets.SERVER_USERNAME }}  # 服务器用户名
-          password: ${{ secrets.SERVER_PASSWORD }}  # 服务器密码
-          port: 22  # SSH 端口
-          source: "assets/,css/,js/,index.html,lg.html,history.html"  # 需要上传的文件和目录
-          target: "/opt/1panel/apps/openresty/openresty/www/sites/claw.ink/index"  # 服务器目标路径
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          source: |
+            public/
+            config/
+            server.js
+            package.json
+            package-lock.json
+            .env
+          target: "/opt/clawcloud"
+          strip_components: 0
+
+      - name: Execute remote commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          script: |
+            cd /opt/clawcloud
+            npm install
+            pm2 restart clawcloud || pm2 start server.js --name clawcloud
+
+      - name: Deploy static files
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          source: "public/*"
+          target: "/opt/1panel/apps/openresty/openresty/www/sites/claw.ink/index"
+          strip_components: 1
