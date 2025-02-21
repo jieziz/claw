@@ -13,6 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # 检查文件结构
+      - name: List files
+        run: |
+          pwd
+          ls -la
+          ls -la nginx/
+
       # 部署 Nginx 配置
       - name: Deploy Nginx config
         uses: appleboy/scp-action@master
@@ -21,7 +28,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
-          source: "nginx/claw.ink.conf"
+          source: "./nginx/claw.ink.conf"
           target: "/www/server/panel/vhost/nginx"
           strip_components: 1
 
