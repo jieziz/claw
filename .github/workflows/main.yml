@@ -82,6 +82,13 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           script: |
+            # 创建并设置日志目录
+            sudo mkdir -p /www/wwwlogs
+            sudo touch /www/wwwlogs/claw.ink.log /www/wwwlogs/claw.ink.error.log
+            sudo chown -R www-data:www-data /www/wwwlogs
+            sudo chmod 755 /www/wwwlogs
+            sudo chmod 644 /www/wwwlogs/claw.ink.*
+            
             # 设置网站目录权限
             sudo mkdir -p /www/wwwroot/claw.ink
             sudo chown -R www-data:www-data /www/wwwroot/claw.ink
@@ -91,42 +98,14 @@ jobs:
             echo "Checking website files:"
             ls -la /www/wwwroot/claw.ink/
             
-            # 重启后端服务
-            cd /opt/clawcloud
-            mkdir -p config logs data
-            touch logs/error.log
+            # 检查 Nginx 配置
+            nginx -t
             
-            # 设置数据库目录
-            export SQLITE_DB_PATH="/opt/clawcloud/data/database.sqlite"
+            # 重启 Nginx
+            sudo systemctl restart nginx
             
-            # 初始化数据库
-            if [ ! -f "$SQLITE_DB_PATH" ]; then
-                sqlite3 "$SQLITE_DB_PATH" < init.sql
-            fi
+            # 检查 Nginx 状态
+            sudo systemctl status nginx
             
-            # 确保网站日志目录存在
-            sudo mkdir -p /www/wwwlogs
-            sudo chown -R $USER:$USER /www/wwwlogs
-            
-            # 安装编译工具和依赖
-            sudo apt-get update
-            sudo apt-get install -y python3 make gcc g++ build-essential sqlite3 libsqlite3-dev
-            npm install -g node-gyp
-            
-            # 清理并重新安装依赖
-            rm -rf node_modules package-lock.json
-            npm install --build-from-source
-            npm install better-sqlite3 --build-from-source
-            
-            # 设置环境变量
-            echo "export SQLITE_DB_PATH=/opt/clawcloud/data/database.sqlite" >> ~/.bashrc
-            source ~/.bashrc
-            
-            # 重启服务
-            pm2 delete clawcloud || true
-            pm2 start server.js --name clawcloud
-            pm2 save
-            
-            # 检查 Nginx 配置和状态
-            sudo systemctl is-active nginx || sudo systemctl start nginx
-            nginx -t && nginx -s reload
+            # 测试网站访问
+            curl -H "Host: claw.ink" http://localhost/
