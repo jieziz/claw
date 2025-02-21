@@ -26,7 +26,6 @@ CREATE TABLE products (
     FOREIGN KEY (category_id) REFERENCES categories(id)  -- 外键约束，关联categories表
 );
 
--- 插入示例数据（添加sort值）
 INSERT INTO categories (id, name, description, sort) VALUES
 ('Cloud-VPS', 'Cloud-VPS', '强大且灵活的VPS，折扣价实惠', 100),
 ('Cloud-VDS', 'Cloud-VDS', '高性能VPS，独享CPU内存存储资源', 90),
@@ -34,7 +33,6 @@ INSERT INTO categories (id, name, description, sort) VALUES
 ('China-Optimized', 'China Optimized', '专为中国优化的VPS', 70),
 ('Flash-Sale', 'Flash Sale', '限时抢购，折扣力度大', 60),
 ('Special-Offers', 'Special Offers', '特别优惠，限时抢购', 50);
-
 
 
 
