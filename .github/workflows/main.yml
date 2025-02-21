@@ -113,11 +113,33 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           script: |
+            # 检查并安装 Node.js
+            if ! command -v node &> /dev/null; then
+              curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+              sudo apt-get install -y nodejs
+            fi
+            
+            # 检查并安装 PM2
+            if ! command -v pm2 &> /dev/null; then
+              sudo npm install -g pm2
+            fi
+            
+            # 检查并安装 Nginx
+            if ! command -v nginx &> /dev/null; then
+              sudo apt-get update
+              sudo apt-get install -y nginx
+            fi
+            
             # 重启后端服务
             cd /opt/clawcloud
             mkdir -p config
+            
+            # 设置目录权限
+            sudo chown -R $USER:$USER /opt/clawcloud
+            
             npm install
             pm2 restart clawcloud || pm2 start server.js --name clawcloud
             
             # 测试并重载 Nginx 配置
+            sudo systemctl is-active nginx || sudo systemctl start nginx
             nginx -t && nginx -s reload
