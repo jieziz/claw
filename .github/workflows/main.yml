@@ -46,13 +46,14 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           source: |
-            public/*.html
-            public/assets
-            public/css/font.css
-            public/js/common.js
+            public/
           target: "/www/wwwroot/claw.ink"
           strip_components: 1
           overwrite: true
+          exclude: |
+            public/README.md
+            public/.git*
+            public/*.log
 
       # 部署后端文件
       - name: Deploy backend files
