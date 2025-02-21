@@ -82,8 +82,10 @@ INSERT INTO products (category_id, config, discount_price, regions, discount, ru
 
 
 
+
 INSERT INTO products (category_id, config, discount_price, regions, discount, rules, coupon_code, purchase_link, is_limited) VALUES
 
-('Flash-Sale', 'Cloud VDS-2C/4G/80G/1T/200M', '$4.2/月', '香港/日本/新加坡/法兰克福/北弗吉尼亚/北加利福尼亚/印度尼西亚-雅加达/英国-伦敦','65% OFF', '循环优惠', 'CLAWVDSflash', 'https://clawcloudsingaporeprivatelimited.sjv.io/kOoKk3', true),
-('Flash-Sale', 'China Optimized-2C/1G/40G/1T/1000M', '$4.2/月', '香港/日本/新加坡','30% OFF', '循环优惠', '4CLAWflash', 'https://clawcloudsingaporeprivatelimited.sjv.io/YRye1r', true);
+('Flash-Sale', 'Cloud VDS-2C/4G/80G/1T/200M', '$4.2/月', '香港/日本/新加坡/法兰克福/北弗吉尼亚/北加利福尼亚/印度尼西亚-雅加达/英国-伦敦','65% OFF', '循环优惠 - 每日下午11点更新库存，每日限10台 ', 'CLAWVDSflash', 'https://clawcloudsingaporeprivatelimited.sjv.io/kOoKk3', true),
+('Flash-Sale', 'China Optimized-2C/1G/40G/1T/1000M', '$4.2/月', '香港/日本/新加坡','30% OFF', '循环优惠 - 每日上午11点更新库存，每日限10台
+', '4CLAWflash', 'https://clawcloudsingaporeprivatelimited.sjv.io/YRye1r', true);
 

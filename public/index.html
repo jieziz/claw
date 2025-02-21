@@ -31,6 +31,7 @@
             background-color: #f3f4f6;
             text-transform: uppercase;
             font-size: 0.85rem;
+            text-align: center !important;  /* 强制居中对齐 */
         }
 
         td {
@@ -82,7 +83,8 @@
         }
 
         .gradient-bg {
-            background: linear-gradient(135deg, #50CA7D 0%, #1a202c 100%);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         .highlight {
@@ -335,6 +337,151 @@
         #mobile-menu-button.active + #mobile-menu {
             display: flex;
         }
+
+        /* 现代化样式优化 */
+        :root {
+            --primary-color: #50CA7D;
+            --secondary-color: #1a202c;
+            --accent-color: #4FD1C5;
+        }
+
+        /* 导航栏样式优化 */
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            background-color: var(--accent-color);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* 表格样式优化 */
+        .modern-table {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .modern-table th {
+            background-color: #f8fafc;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-align: center;
+        }
+
+        .modern-table tr:hover {
+            background-color: #f1f5f9;
+            transition: all 0.2s ease;
+        }
+
+        /* 按钮样式优化 */
+        .modern-button {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+        }
+
+        .modern-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 卡片悬停效果 */
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 修改下拉框样式 */
+        .regions-dropdown {
+            position: absolute;
+            z-index: 1000;
+            margin-top: 0.25rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        /* 向上显示的下拉框样式 */
+        .regions-dropdown.dropup {
+            bottom: 100%;
+            top: auto;
+            margin-top: 0;
+            margin-bottom: 0.25rem;
+            position: fixed;
+            max-height: 50vh;
+        }
+
+        /* 添加滚动条样式 */
+        .regions-dropdown::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .regions-dropdown::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .regions-dropdown::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        .regions-dropdown::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Table header and content alignment */
+        th, td {
+            text-align: center !important;
+            vertical-align: middle !important;
+        }
+
+        /* 特定列的样式调整 */
+        td[data-label="配置"] {
+            text-align: left !important;  /* 配置列保持左对齐 */
+        }
+
+        td[data-label="规则"] {
+            text-align: left !important;  /* 规则列保持左对齐 */
+        }
+
+        /* 表格样式优化 */
+        .modern-table {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .modern-table th {
+            background-color: #f8fafc;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-align: center;
+        }
+
+        /* 调整单元格内容的布局 */
+        .cell-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 
@@ -368,7 +515,7 @@
         <div class="absolute inset-0 bg-cover opacity-80" style="background-image: url('assets/banner-vps.webp');">
         </div>
 
-        <div class="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between relative">
+        <div class="container mx-auto px-4 md:px-6 py-4 flex items-center justify-between relative" name="banner-section">
             <div class="flex items-center space-x-4">
                 <img src="assets/log.png" alt="ClawCloud Logo" class="h-8 md:h-10">
                 <span class="logo-text">CLAW CLOUD</span>
@@ -381,7 +528,7 @@
             </button>
             <!-- 桌面导航菜单 -->
             <nav class="hidden md:flex space-x-4 md:space-x-6">
-                <a href="https://claw.ink" target="_blank" class="text-white hover:text-green-200 text-sm md:text-base">首页</a>
+                <a href="index.html" class="nav-link text-white hover:text-gray-200">首页</a>
                 <a href="https://clawcloudsingaporeprivatelimited.sjv.io/anv0AZ" target="_blank" class="text-white hover:text-green-200 text-sm md:text-base">官网</a>
                 <a href="https://t.me/clawCloudActivityChannel" target="_blank" class="text-white hover:text-green-200 text-sm md:text-base">Telegram群组</a>
                 <a href="lg.html" class="text-white hover:text-green-200 text-sm md:text-base">Looking Glass</a>
@@ -389,7 +536,7 @@
             </nav>
             <!-- 移动端下拉菜单 -->
             <nav id="mobile-menu" class="md:hidden">
-                <a href="https://claw.ink" target="_blank">首页</a>
+                <a href="in" target="_blank">首页</a>
                 <a href="https://clawcloudsingaporeprivatelimited.sjv.io/anv0AZ" target="_blank">官网</a>
                 <a href="https://t.me/clawCloudActivityChannel" target="_blank">Telegram群组</a>
                 <a href="lg.html">Looking Glass</a>
@@ -397,15 +544,15 @@
             </nav>
         </div>
 
-        <div class="relative container mx-auto px-4 md:px-6 pt-12 md:pt-24 pb-16 md:pb-28 text-center text-white">
+        <div class="relative container mx-auto px-4 md:px-6 pt-12 md:pt-24 pb-16 md:pb-28 text-center text-white" name="active-activity">
             <!-- 标题 -->
             <h1
                 class="text-3xl md:text-6xl font-extrabold bg-gradient-to-r from-red-500 via-orange-400 via-yellow-400 via-purple-400 to-blue-500 bg-clip-text text-transparent animate-gradient">
-                CLAWCLOUD 1月最新活动
+                CLAWCLOUD 2月最新活动
             </h1>
 
             <!-- 活动时间 -->
-            <div class="mt-4 md:mt-6 space-y-3 md:space-y-4">
+            <!-- <div class="mt-4 md:mt-6 space-y-3 md:space-y-4">
                 <p class="text-base md:text-xl font-medium flex items-center justify-center">
                     <svg class="w-5 h-5 md:w-6 md:h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -422,7 +569,7 @@
                 <p class="text-xs md:text-base font-medium flex items-center justify-center">红色产品是限量款，限量款优惠码将每天不定时发布。
                 </p>
                 </p>
-            </div>
+            </div> -->
 
             <!-- 温馨提示 -->
             <div class="mt-4 md:mt-6 p-3 md:p-4 bg-white bg-opacity-10 rounded-lg inline-block">
@@ -521,16 +668,16 @@
         // 渲染产品表格
         function renderProductTable(products) {
             const tableHtml = `
-                <table class="min-w-full border table-auto">
+                <table class="min-w-full border table-auto modern-table">
                     <thead>
                         <tr>
-                            <th class="py-3 px-4 md:py-4 md:px-6 text-left">配置</th>
-                            <th class="py-3 px-4 md:py-4 md:px-6 text-left">折扣价</th>
-                            <th class="py-3 px-4 md:py-4 md:px-6 text-left">适用区域</th>
-                            <th class="py-3 px-4 md:py-4 md:px-6 text-left">折扣</th>
-                            <th class="py-3 px-4 md:py-4 md:px-6 text-left">规则</th>
-                            <th class="py-3 px-4 md:py-4 md:px-6 text-left">优惠码</th>
-                            <th class="py-3 px-4 md:py-4 md:px-6 text-left">立即购买</th>
+                            <th class="py-3 px-4 md:py-4 md:px-6">配置</th>
+                            <th class="py-3 px-4 md:py-4 md:px-6">折扣价</th>
+                            <th class="py-3 px-4 md:py-4 md:px-6">适用区域</th>
+                            <th class="py-3 px-4 md:py-4 md:px-6">折扣</th>
+                            <th class="py-3 px-4 md:py-4 md:px-6">规则</th>
+                            <th class="py-3 px-4 md:py-4 md:px-6">优惠码</th>
+                            <th class="py-3 px-4 md:py-4 md:px-6">立即购买</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -544,16 +691,37 @@
                                     <span class="inline-block align-middle">${product.config}</span>
                                 </td>
                                 <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣价">${product.discount_price}</td>
-                                <td class="py-3 px-4 md:py-4 md:px-6" data-label="适用区域">${product.regions}</td>
+                                <td class="py-3 px-4 md:py-4 md:px-6" data-label="适用区域">
+                                    <div class="flex justify-center">
+                                        <div class="relative inline-block text-left regions-container">
+                                            <button type="button" 
+                                                    class="regions-toggle modern-button inline-flex items-center px-3 py-1 border border-gray-300 rounded-md">
+                                                查看区域
+                                                <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                                </svg>
+                                            </button>
+                                            <div class="regions-dropdown hidden absolute z-50 mt-1 w-56 rounded-md shadow-lg bg-white backdrop-blur-sm bg-opacity-95">
+                                                <div class="py-1 px-2 text-sm text-gray-700">
+                                                    ${product.regions.split('/').map(region => 
+                                                        `<div class="py-2 px-3 hover:bg-gray-50 rounded-md transition-colors duration-200">${region}</div>`
+                                                    ).join('')}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
                                 <td class="py-3 px-4 md:py-4 md:px-6" data-label="折扣">${product.discount}</td>
                                 <td class="py-3 px-4 md:py-4 md:px-6" data-label="规则">${product.rules}</td>
                                 <td class="py-3 px-4 md:py-4 md:px-6" data-label="优惠码">${product.coupon_code}</td>
                                 <td class="py-3 px-4 md:py-4 md:px-6" data-label="立即购买">
-                                    <a href="${product.purchase_link}" 
-                                       class="${product.is_limited ? 'order-button pulse' : 'text-blue-500 hover:underline'}"
-                                       target="_blank">
-                                       点击下单
-                                    </a>
+                                    <div class="flex justify-center">
+                                        <a href="${product.purchase_link}" 
+                                           class="${product.is_limited ? 'order-button pulse' : 'modern-button px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600'}"
+                                           target="_blank">
+                                            ${product.is_limited ? '一键下单' : '点击下单'}
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         `).join('')}
@@ -567,6 +735,42 @@
         // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', () => {
             fetchProductCategories();
+            
+            // 使用事件委托处理区域切换
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.regions-toggle')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const button = e.target.closest('.regions-toggle');
+                    const dropdown = button.nextElementSibling;
+                    
+                    // 计算下拉框的位置
+                    const buttonRect = button.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+                    const dropdownHeight = Math.min(300, windowHeight * 0.5); // 最大高度
+                    
+                    // 检查下方是否有足够空间
+                    const spaceBelow = windowHeight - buttonRect.bottom;
+                    const shouldDropUp = spaceBelow < dropdownHeight;
+                    
+                    // 设置下拉框位置
+                    if (shouldDropUp) {
+                        dropdown.classList.add('dropup');
+                        dropdown.style.bottom = `${windowHeight - buttonRect.top}px`;
+                        dropdown.style.left = `${buttonRect.left}px`;
+                        dropdown.style.maxHeight = `${buttonRect.top - 20}px`; // 留出一些空间
+                    } else {
+                        dropdown.classList.remove('dropup');
+                        dropdown.style.bottom = '';
+                        dropdown.style.left = '';
+                        dropdown.style.maxHeight = '';
+                    }
+                    
+                    // 切换显示状态
+                    dropdown.classList.toggle('hidden');
+                }
+            });
         });
 
         // 移动端菜单切换逻辑
