@@ -25,7 +25,6 @@ const dbPath = process.env.SQLITE_DB_PATH || path.join(
     __dirname,
     '../data/database.sqlite'
 );
-logger.info(`数据库路径: ${dbPath}`);
 
 // 确保数据库目录存在
 const dbDir = path.dirname(dbPath);
@@ -34,11 +33,30 @@ if (!fs.existsSync(dbDir)) {
     logger.info(`创建数据库目录: ${dbDir}`);
 }
 
-// 创建数据库连接
-const db = new Database(dbPath, { 
-    verbose: (message) => logger.debug(message),
-    fileMustExist: false
-});
+logger.info(`数据库路径: ${dbPath}`);
+
+// 创建数据库连接，添加重试机制
+let db;
+const maxRetries = 3;
+let retryCount = 0;
+
+while (retryCount < maxRetries) {
+  try {
+    db = new Database(dbPath, { 
+        verbose: (message) => logger.debug(message),
+        fileMustExist: false
+    });
+    break;
+  } catch (error) {
+    retryCount++;
+    logger.error(`尝试连接数据库失败 (${retryCount}/${maxRetries}):`, error);
+    if (retryCount === maxRetries) {
+      throw error;
+    }
+    // 等待一秒后重试
+    new Promise(resolve => setTimeout(resolve, 1000));
+  }
+}
 logger.info('数据库连接已创建');
 
 // 初始化数据库表和数据
