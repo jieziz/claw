@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
 });
 
 // 获取产品类别接口
-app.get('/api/categories', async (req, res) => {
+app.get('/categories', async (req, res) => {
     try {
         const categories = await db.all('SELECT * FROM categories ORDER BY sort ASC');
         res.json(categories);
