@@ -34,7 +34,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           source: "./nginx/claw.ink.conf"
-          target: "/www/server/panel/vhost/nginx"
+          target: "/etc/nginx/conf.d"
           strip_components: 1
 
       # 部署静态文件到网站目录
@@ -82,10 +82,24 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           script: |
+            # 检查并备份当前 Nginx 配置
+            sudo cp /etc/nginx/conf.d/claw.ink.conf /etc/nginx/conf.d/claw.ink.conf.bak || true
+            
+            # 验证 Nginx 配置
+            sudo nginx -t
+            
+            # 如果配置正确则重启 Nginx，否则恢复备份
+            if [ $? -eq 0 ]; then
+                sudo systemctl restart nginx
+            else
+                sudo mv /etc/nginx/conf.d/claw.ink.conf.bak /etc/nginx/conf.d/claw.ink.conf
+                echo "Nginx configuration test failed, restored backup"
+                exit 1
+            fi
+            
             # 设置网站目录权限
             sudo mkdir -p /www/wwwroot/claw.ink
             sudo chown -R www-data:www-data /www/wwwroot/claw.ink
-            sudo chmod -R 755 /www/wwwroot/claw.ink
             
             # 检查网站文件
             echo "Checking website files:"
@@ -126,7 +140,3 @@ jobs:
             pm2 delete clawcloud || true
             pm2 start server.js --name clawcloud
             pm2 save
-            
-            # 检查 Nginx 配置和状态
-            sudo systemctl is-active nginx || sudo systemctl start nginx
-            nginx -t && nginx -s reload
