@@ -35,7 +35,7 @@ jobs:
           port: 22
           source: "./nginx/claw.ink.conf"
           target: "/etc/nginx/conf.d"
-          strip_components: 1
+          strip_components: 2
 
       # 部署静态文件到网站目录
       - name: Deploy static files
@@ -82,6 +82,9 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           script: |
+            # 清理错误的配置文件
+            sudo rm -rf /etc/nginx/conf.d/nginx
+            
             # 检查并备份当前 Nginx 配置
             sudo cp /etc/nginx/conf.d/claw.ink.conf /etc/nginx/conf.d/claw.ink.conf.bak || true
             
@@ -90,6 +93,9 @@ jobs:
             
             # 如果配置正确则重启 Nginx，否则恢复备份
             if [ $? -eq 0 ]; then
+                echo "Nginx configuration is valid"
+                echo "Current Nginx configuration:"
+                sudo nginx -T
                 sudo systemctl restart nginx
             else
                 sudo mv /etc/nginx/conf.d/claw.ink.conf.bak /etc/nginx/conf.d/claw.ink.conf
