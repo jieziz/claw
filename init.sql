@@ -31,8 +31,8 @@ INSERT INTO categories (id, name, description, sort) VALUES
 ('Cloud-VDS', 'Cloud-VDS', '高性能VPS，独享CPU内存存储资源', 90),
 ('Cloud-WIN', 'Cloud-WIN', 'Windows VPS，灵活易用', 80),
 ('China-Optimized', 'China Optimized', '专为中国优化的VPS', 70),
-('Flash-Sale', 'Flash Sale', '限时抢购，折扣力度大', 60),
-('Special-Offers', 'Special Offers', '特别优惠，限时抢购', 50);
+('Flash-Sale', 'Flash Sale', '限时抢购，折扣力度大', 50),
+('Special-Offers', 'Special Offers', '特别优惠，限时抢购', 60);
 
 
 
