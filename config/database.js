@@ -21,7 +21,10 @@ function getDbPath() {
 }
 
 // 获取数据库路径
-const dbPath = getDbPath();
+const dbPath = process.env.SQLITE_DB_PATH || path.join(
+    __dirname,
+    '../data/database.sqlite'
+);
 logger.info(`数据库路径: ${dbPath}`);
 
 // 确保数据库目录存在
