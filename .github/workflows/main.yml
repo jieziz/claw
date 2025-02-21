@@ -52,23 +52,33 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
-          source: "public/assets/"
+          source: "public/assets"
           target: "/www/wwwroot/claw.ink"
           strip_components: 1
           overwrite: true
 
-      - name: Deploy CSS and JS
+      - name: Deploy CSS
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
-          source: |
-            public/css/
-            public/js/
-          target: "/www/wwwroot/claw.ink"
-          strip_components: 1
+          source: "public/css/font.css"
+          target: "/www/wwwroot/claw.ink/css"
+          strip_components: 2
+          overwrite: true
+
+      - name: Deploy JS
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: 22
+          source: "public/js/common.js"
+          target: "/www/wwwroot/claw.ink/js"
+          strip_components: 2
           overwrite: true
 
       # 部署后端文件
