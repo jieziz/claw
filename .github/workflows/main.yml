@@ -82,39 +82,44 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           script: |
+            # 备份现有配置
+            sudo cp /etc/nginx/conf.d/claw.ink.conf /etc/nginx/conf.d/claw.ink.conf.bak || true
+            
             # 安装 certbot
             sudo apt-get update
             sudo apt-get install -y certbot python3-certbot-nginx
             
-            # 申请证书（如果不存在）
-            if [ ! -f "/etc/letsencrypt/live/claw.ink/fullchain.pem" ]; then
-                sudo certbot certonly --nginx \
-                    --non-interactive \
-                    --agree-tos \
-                    --email admin@claw.ink \
-                    -d claw.ink -d www.claw.ink
-            fi
-            
             # 清理错误的配置文件
             sudo rm -rf /etc/nginx/conf.d/nginx
             
-            # 检查并备份当前 Nginx 配置
-            sudo cp /etc/nginx/conf.d/claw.ink.conf /etc/nginx/conf.d/claw.ink.conf.bak || true
+            # 确保 Nginx 使用基本 HTTP 配置
+            sudo systemctl restart nginx
             
-            # 验证 Nginx 配置
-            sudo nginx -t
+            # 停止 Nginx 以释放 80 端口
+            sudo systemctl stop nginx
             
-            # 如果配置正确则重启 Nginx，否则恢复备份
-            if [ $? -eq 0 ]; then
-                echo "Nginx configuration is valid"
-                echo "Current Nginx configuration:"
-                sudo nginx -T
+            # 申请证书
+            sudo certbot certonly --standalone \
+                --non-interactive \
+                --agree-tos \
+                --email admin@claw.ink \
+                --domains claw.ink,www.claw.ink
+            
+            # 如果证书申请成功，部署完整的 HTTPS 配置
+            if [ -f "/etc/letsencrypt/live/claw.ink/fullchain.pem" ]; then
+                echo "Certificate obtained successfully, deploying HTTPS configuration"
+                # 这里会部署包含 HTTPS 的完整配置
                 sudo systemctl restart nginx
             else
+                echo "Certificate acquisition failed, restoring HTTP-only configuration"
                 sudo mv /etc/nginx/conf.d/claw.ink.conf.bak /etc/nginx/conf.d/claw.ink.conf
-                echo "Nginx configuration test failed, restored backup"
+                sudo systemctl restart nginx
                 exit 1
             fi
+            
+            # 设置证书自动续期
+            sudo systemctl enable certbot.timer
+            sudo systemctl start certbot.timer
             
             # 设置网站目录权限
             sudo mkdir -p /www/wwwroot/claw.ink
