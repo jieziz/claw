@@ -38,52 +38,20 @@ jobs:
           strip_components: 1
 
       # 部署静态文件到网站目录
-      - name: Deploy HTML files
+      - name: Deploy static files
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
-          source: "public/*.html"
+          source: |
+            public/*.html
+            public/assets
+            public/css/font.css
+            public/js/common.js
           target: "/www/wwwroot/claw.ink"
           strip_components: 1
-          overwrite: true
-
-      - name: Deploy assets
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          port: 22
-          source: "public/assets"
-          target: "/www/wwwroot/claw.ink"
-          strip_components: 1
-          overwrite: true
-
-      - name: Deploy CSS
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          port: 22
-          source: "public/css/font.css"
-          target: "/www/wwwroot/claw.ink/css"
-          strip_components: 2
-          overwrite: true
-
-      - name: Deploy JS
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          port: 22
-          source: "public/js/common.js"
-          target: "/www/wwwroot/claw.ink/js"
-          strip_components: 2
           overwrite: true
 
       # 部署后端文件
@@ -113,33 +81,55 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           script: |
-            # 检查并安装 Node.js
-            if ! command -v node &> /dev/null; then
-              curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-              sudo apt-get install -y nodejs
-            fi
+            # 检查目录和文件
+            echo "Checking directories and files..."
+            ls -la /www/wwwroot/claw.ink
+            ls -la /opt/clawcloud
             
-            # 检查并安装 PM2
-            if ! command -v pm2 &> /dev/null; then
-              sudo npm install -g pm2
-            fi
-            
-            # 检查并安装 Nginx
-            if ! command -v nginx &> /dev/null; then
-              sudo apt-get update
-              sudo apt-get install -y nginx
-            fi
+            # 检查 Node.js 版本和环境
+            echo "Checking Node.js environment..."
+            node -v
+            npm -v
             
             # 重启后端服务
             cd /opt/clawcloud
-            mkdir -p config
+            mkdir -p config logs
+            touch logs/error.log
             
-            # 设置目录权限
-            sudo chown -R $USER:$USER /opt/clawcloud
+            # 确保网站日志目录存在
+            sudo mkdir -p /www/wwwlogs
+            sudo chown -R $USER:$USER /www/wwwlogs
             
             npm install
-            pm2 restart clawcloud || pm2 start server.js --name clawcloud
+            # 启动服务并检查状态
+            echo "Starting backend service..."
+            pm2 delete clawcloud || true
+            pm2 start server.js --name clawcloud
+            pm2 save
             
-            # 测试并重载 Nginx 配置
+            # 等待服务启动
+            sleep 5
+            
+            # 检查服务状态
+            echo "Checking service status..."
+            pm2 list
+            pm2 logs clawcloud --lines 20
+            
+            # 检查端口占用
+            echo "Checking port status..."
+            netstat -tulpn | grep LISTEN
+            
+            # 检查 Nginx 配置和状态
+            echo "Checking Nginx status..."
             sudo systemctl is-active nginx || sudo systemctl start nginx
             nginx -t && nginx -s reload
+            systemctl status nginx
+            
+            # 测试 API 连接
+            echo "Testing API connection..."
+            curl -I http://localhost:3000/api/categories || echo "API not responding"
+            
+            # 检查错误日志
+            echo "Checking error logs..."
+            tail -n 50 /opt/clawcloud/logs/error.log || echo "No error log found"
+            tail -n 50 /www/wwwlogs/claw.ink.error.log || echo "No Nginx error log found"
