@@ -82,6 +82,19 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           script: |
+            # 生成自签名证书
+            sudo mkdir -p /etc/nginx/ssl/claw.ink
+            if [ ! -f /etc/nginx/ssl/claw.ink/certificate.crt ]; then
+                sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+                -keyout /etc/nginx/ssl/claw.ink/private.key \
+                -out /etc/nginx/ssl/claw.ink/certificate.crt \
+                -subj "/C=CN/ST=Shanghai/L=Shanghai/O=ClawCloud/CN=claw.ink"
+            fi
+            
+            # 设置证书权限
+            sudo chmod 600 /etc/nginx/ssl/claw.ink/private.key
+            sudo chmod 644 /etc/nginx/ssl/claw.ink/certificate.crt
+            
             # 清理错误的配置文件
             sudo rm -rf /etc/nginx/conf.d/nginx
             
