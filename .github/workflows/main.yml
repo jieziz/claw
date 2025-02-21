@@ -46,7 +46,7 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           source: |
-            public/
+            public/*
           target: "/www/wwwroot/claw.ink"
           strip_components: 1
           overwrite: true
@@ -82,6 +82,15 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           script: |
+            # 设置网站目录权限
+            sudo mkdir -p /www/wwwroot/claw.ink
+            sudo chown -R www-data:www-data /www/wwwroot/claw.ink
+            sudo chmod -R 755 /www/wwwroot/claw.ink
+            
+            # 检查网站文件
+            echo "Checking website files:"
+            ls -la /www/wwwroot/claw.ink/
+            
             # 重启后端服务
             cd /opt/clawcloud
             mkdir -p config logs data
