@@ -19,6 +19,11 @@ jobs:
           pwd
           ls -la
           ls -la nginx/
+          echo "Checking backend files:"
+          ls -la server.js || echo "server.js not found"
+          ls -la init.sql || echo "init.sql not found"
+          ls -la package.json || echo "package.json not found"
+          ls -la config/database.js || echo "database.js not found"
 
       # 部署 Nginx 配置
       - name: Deploy Nginx config
@@ -89,27 +94,15 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
-          source: |
-            ./server.js
-            ./init.sql
-            ./package.json
-            ./config/database.js
+          source: "."
           target: "/opt/clawcloud"
-          strip_components: 1
+          strip_components: 0
           overwrite: true
-
-      # 部署环境配置文件
-      - name: Deploy env file
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          port: 22
-          source: ".env.example"
-          target: "/opt/clawcloud/.env"
-          strip_components: 1
-          overwrite: true
+          exclude: |
+            .git*
+            node_modules
+            public
+            nginx
 
       # 重启服务
       - name: Restart services
